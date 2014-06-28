@@ -1,0 +1,5 @@
+/build
+myconbook.gradle
+crashlytics.properties
+/src/main/assets/crashlytics-build.properties
+/src/main/res/values/com_crashlytics_export_strings.xml

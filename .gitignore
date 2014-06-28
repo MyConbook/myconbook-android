@@ -1,0 +1,15 @@
+# MyConbook compiling stuff
+myconbook.keystore
+build.bat
+build.sh
+
+# Android Studio
+.idea/
+.gradle
+local.properties
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
+build/

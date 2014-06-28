@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.myconbook.android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppCompat">
+        <activity
+            android:name=".ui.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name=".content.ConbookProvider"
+            android:authorities="net.myconbook.android.conbookprovider"
+            android:exported="false" />
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="b4a1fd4a4355ebb39625bdf42d4e46b83476ece3" />
+    </application>
+</manifest>

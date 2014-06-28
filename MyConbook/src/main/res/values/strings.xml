@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyConbook</string>
+    <string name="conname">Convention Name</string>
+    <string name="schedule">Schedule</string>
+    <string name="guide">Guides</string>
+    <string name="guidedetail">Detailed information</string>
+    <string name="coninfo">Con Info</string>
+    <string name="dealers">Dealers</string>
+    <string name="buildingmaps">Hotel Maps</string>
+    <string name="areamap">Area Map</string>
+    <string name="scheduledaypick">Select a day</string>
+    <string name="conschedule">Convention schedule</string>
+    <string name="sortname">Sort by name</string>
+    <string name="sorttime">Sort by time</string>
+    <string name="sortroom">Sort by room</string>
+    <string name="sortgroup">Sort by category</string>
+    <string name="reload">Reload</string>
+    <string name="addtocalendar">Add to calendar</string>
+    <string name="showmap">Show map</string>
+    <string name="about">About</string>
+    <string name="aboutinfo">MyConbook - Where your conbook and phone collide</string>
+    <string name="supporttext">Support is available by contacting\nmyconbook@gmail.com\n\nor follow us on Twitter at\nhttp://twitter.com/myconbook</string>
+    <string name="email">myconbook@gmail.com</string>
+    <string name="guidedisclaimer">Report a problem</string>
+    <string name="guideselect">Select a guide</string>
+    <string name="restaurantguide">Restaurants</string>
+    <string name="barguide">Bars</string>
+    <string name="storeguide">Stores</string>
+    <string name="atmguide">Bank/ATMs</string>
+    <string name="hotels">Hotels</string>
+    <string name="conventioninfo">Convention Info</string>
+    <string name="filtercategory">Filter by category</string>
+    <string name="filter">Filter</string>
+    <string name="clear">Clear</string>
+    <string name="filterhint">Enter text to search</string>
+    <string name="noresults">No items found.</string>
+    <string name="search">Search</string>
+    <string name="sort">Sort</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="locationhours">Location hours</string>
+    <string name="thursdayColon">Thursday:</string>
+    <string name="fridayColon">Friday:</string>
+    <string name="saturdayColon">Saturday:</string>
+    <string name="sundayColon">Sunday:</string>
+
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Close drawer</string>
+    <string name="show_open_now">Show open now</string>
+</resources>
