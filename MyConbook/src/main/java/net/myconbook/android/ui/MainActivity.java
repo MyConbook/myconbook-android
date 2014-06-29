@@ -39,6 +39,7 @@ import java.util.HashMap;
 
 public class MainActivity extends ActionBarActivity implements OnClickListener {
     private HashMap<String, String> mDbInfo;
+    private boolean mIsPaused;
     private boolean mAboutShown;
     private boolean mAlertShown;
 
@@ -183,12 +184,19 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
+        mIsPaused = false;
 
         if (mUpdateFragment.getShouldUpdate()) {
             startListUpdate(false);
         } else {
             populateConList();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mIsPaused = true;
     }
 
     @Override
@@ -471,7 +479,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
             toggleButtons(true);
         }
 
-        if (!mAboutShown) {
+        if (!mAboutShown && !mIsPaused) {
             startFragment(AboutFragment.createInstance(mDbInfo), true, false);
             mDrawerLayout.openDrawer(Gravity.LEFT);
             mAboutShown = true;
