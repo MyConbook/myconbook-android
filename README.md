@@ -16,6 +16,6 @@ Crashlytics support is built in, make sure `CRASHLYTICS_ENABLED` is turned off (
 
 License
 -------
-MyConbook for Android is licensed under the Apache license. See README.txt.
+MyConbook for Android is licensed under the Apache license. See LICENSE.txt.
 
 Redistributions **may not** use the official MyConbook data source without permission.
