@@ -299,7 +299,9 @@ public class ScheduleListFragment extends ConbookSearchListFragment<ScheduleList
             details = "(No description given)";
         }
 
-        details += "\n\nCategory: " + cli.getCategory();
+        if (cli.getCategory() != null && !"".equals(cli.getCategory())) {
+            details += "\n\nCategory: " + cli.getCategory();
+        }
 
         // Show details dialog
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
