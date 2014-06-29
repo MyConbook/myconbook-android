@@ -64,7 +64,6 @@ public class ConbookProvider extends ContentProvider {
     }
 
     private Context context;
-    private SQLiteDatabase db;
 
     @Override
     public boolean onCreate() {
@@ -74,11 +73,7 @@ public class ConbookProvider extends ContentProvider {
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        if (db == null) {
-            // Don't open the database until we need it
-            db = context.openOrCreateDatabase(DATABASE_NAME, 0, null);
-        }
-
+        SQLiteDatabase db = context.openOrCreateDatabase(DATABASE_NAME, 0, null);
         SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 
         switch (matcher.match(uri)) {
