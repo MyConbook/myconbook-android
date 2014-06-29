@@ -355,6 +355,10 @@ public class UpdateFragment extends Fragment {
                     Log.e("UpdateFragment.AsyncFetchCon.doInBackground error updating database", e);
                     Log.c(e);
                     throw new UpdaterAlertException("Error updating database.", true);
+                } catch (NullPointerException e) {
+                    Log.e("UpdateFragment.AsyncFetchCon.doInBackground null pointer exception", e);
+                    Log.c(e);
+                    throw new UpdaterAlertException("Error updating database.", true);
                 }
 
                 // Check maps version
