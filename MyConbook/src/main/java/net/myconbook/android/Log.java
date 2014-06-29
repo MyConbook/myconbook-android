@@ -1,5 +1,7 @@
 package net.myconbook.android;
 
+import com.crashlytics.android.Crashlytics;
+
 /**
  * MyConbook logger.
  */
@@ -15,14 +17,32 @@ public class Log {
     }
 
     public static void w(String msg) {
-        android.util.Log.w(TAG, msg);
+        if (BuildConfig.CRASHLYTICS_ENABLED) {
+            Crashlytics.log(android.util.Log.WARN, TAG, msg);
+        } else {
+            android.util.Log.w(TAG, msg);
+        }
     }
 
     public static void w(String msg, Throwable e) {
-        android.util.Log.w(TAG, msg, e);
+        if (BuildConfig.CRASHLYTICS_ENABLED) {
+            Crashlytics.log(android.util.Log.WARN, TAG, msg);
+        } else {
+            android.util.Log.w(TAG, msg, e);
+        }
     }
 
     public static void e(String msg, Throwable e) {
-        android.util.Log.e(TAG, msg, e);
+        if (BuildConfig.CRASHLYTICS_ENABLED) {
+            Crashlytics.log(android.util.Log.ERROR, TAG, msg);
+        } else {
+            android.util.Log.e(TAG, msg, e);
+        }
+    }
+
+    public static void c(Throwable e) {
+        if (BuildConfig.CRASHLYTICS_ENABLED) {
+            Crashlytics.logException(e);
+        }
     }
 }

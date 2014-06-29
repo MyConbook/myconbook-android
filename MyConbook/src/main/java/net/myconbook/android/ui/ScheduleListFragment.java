@@ -148,6 +148,7 @@ public class ScheduleListFragment extends ConbookSearchListFragment<ScheduleList
             info = (AdapterContextMenuInfo) item.getMenuInfo();
         } catch (ClassCastException e) {
             Log.e("ScheduleListFragment.onContextItemSelected casting getMenuInfo error", e);
+            Log.c(e);
             return false;
         }
 

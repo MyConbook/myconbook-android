@@ -36,6 +36,7 @@ public class ScheduleDayListItem implements Serializable {
             return format.parse(_day);
         } catch (ParseException e) {
             Log.e("Could not parse start date", e);
+            Log.c(e);
             return null;
         }
     }

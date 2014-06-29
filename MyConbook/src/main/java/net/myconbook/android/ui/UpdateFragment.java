@@ -207,12 +207,15 @@ public class UpdateFragment extends Fragment {
                     mUpdateChecker.fetchList();
                 } catch (ClientProtocolException e) {
                     Log.w("UpdateFragment.AsyncFetchList.doInBackground request error", e);
+                    Log.c(e);
                     throw new UpdaterAlertException("Error checking for updates.");
                 } catch (NullPointerException e) {
                     Log.w("UpdateFragment.AsyncFetchList.doInBackground server response was empty", e);
+                    Log.c(e);
                     throw new UpdaterAlertException("Error checking for updates.");
                 } catch (IOException e) {
                     Log.w("UpdateFragment.AsyncFetchList.doInBackground error retrieving list file", e);
+                    Log.c(e);
                     throw new UpdaterAlertException("Error checking for updates.");
                 }
             } catch (UpdaterAlertException e) {
@@ -314,6 +317,7 @@ public class UpdateFragment extends Fragment {
                     mUpdateChecker.fetchCon(conName);
                 } catch (IOException e) {
                     Log.w("UpdateFragment.AsyncFetchCon.doInBackground error retrieving con data", e);
+                    Log.c(e);
                     throw new UpdaterAlertException("Error checking for updates.");
                 }
 
@@ -336,9 +340,11 @@ public class UpdateFragment extends Fragment {
                     }
                 } catch (ClientProtocolException e) {
                     Log.e("UpdateFragment.AsyncFetchCon.doInBackground error updating database", e);
+                    Log.c(e);
                     throw new UpdaterAlertException("Error updating database.", true);
                 } catch (IOException e) {
                     Log.e("UpdateFragment.AsyncFetchCon.doInBackground error updating database", e);
+                    Log.c(e);
                     throw new UpdaterAlertException("Error updating database.", true);
                 }
 
@@ -435,6 +441,7 @@ public class UpdateFragment extends Fragment {
                 getActivity().openOrCreateDatabase(DbLoader.DATABASE_NAME, 0, null).close();
             } catch (SQLiteException e) {
                 Log.e("UpdateFragment.initDb error creating blank database", e);
+                Log.c(e);
                 throw new UpdaterAlertException("Error creating database file. Restart the application and try again.");
             }
 

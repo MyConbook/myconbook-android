@@ -186,7 +186,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
         if (mUpdateFragment.getShouldUpdate()) {
             startListUpdate(false);
-            return;
         } else {
             populateConList();
         }
@@ -221,8 +220,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
                     return;
                 }
 
-                if (mDbInfo.containsKey(DbLoader.INFO_HAS_GUIDE) && mDbInfo.get(DbLoader.INFO_HAS_GUIDE).equals("0")) {
-                    if (mDbInfo.containsKey(DbLoader.INFO_GUIDE_URL) && !mDbInfo.get(DbLoader.INFO_GUIDE_URL).equals("")) {
+                if ("0".equals(mDbInfo.get(DbLoader.INFO_HAS_GUIDE))) {
+                    if (!"".equals(mDbInfo.get(DbLoader.INFO_GUIDE_URL))) {
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(mDbInfo.get(DbLoader.INFO_GUIDE_URL)));
                         startSafeActivity(i);
@@ -251,12 +250,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
                 Intent i = new Intent(Intent.ACTION_VIEW);
 
                 if (mDbInfo == null) {
-                    return;
-                }
-
-                if (!mDbInfo.containsKey(DbLoader.INFO_AREA_MAP)) {
-                    Log.w("MainActivity.onClick database does not have area map value, out of date.");
-                    showError("Database is out of date! Please reload it!", false);
                     return;
                 }
 
@@ -471,6 +464,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         }
 
         if (mDbInfo == null) {
+            Log.w("MainActivity.refreshFromDb dbInfo is still null");
             showError("The database could not be loaded.", true);
             return;
         } else {
@@ -481,6 +475,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
             startFragment(AboutFragment.createInstance(mDbInfo), true, false);
             mDrawerLayout.openDrawer(Gravity.LEFT);
             mAboutShown = true;
+        }
+
+        if (BuildConfig.CRASHLYTICS_ENABLED) {
+            Crashlytics.setString("ConName", mUpdateFragment.getConName());
         }
     }
 

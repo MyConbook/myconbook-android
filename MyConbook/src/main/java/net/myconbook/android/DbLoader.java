@@ -35,6 +35,7 @@ public class DbLoader {
             return info.containsKey(INFO_BUILDDATE);
         } catch (SQLiteException e) {
             Log.e("Database validation failure", e);
+            Log.c(e);
             return false;
         }
     }
@@ -49,6 +50,7 @@ public class DbLoader {
             }
         } catch (SQLiteException e) {
             Log.e("Error retrieving database version", e);
+            Log.c(e);
             return -1;
         }
     }

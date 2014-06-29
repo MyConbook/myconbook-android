@@ -33,9 +33,11 @@ public class MapDownloader {
             outStream.close();
         } catch (ClientProtocolException e) {
             Log.e("MapDownloader.update error downloading map file", e);
+            Log.c(e);
             return false;
         } catch (IOException e) {
             Log.e("MapDownloader.update error downloading map file", e);
+            Log.c(e);
             return false;
         }
 
@@ -72,6 +74,7 @@ public class MapDownloader {
             inStream.close();
         } catch (IOException e) {
             Log.e("MapDownloader.update error extracting map files", e);
+            Log.c(e);
             return false;
         }
 

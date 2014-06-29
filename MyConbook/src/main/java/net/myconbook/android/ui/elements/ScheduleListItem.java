@@ -46,6 +46,7 @@ public class ScheduleListItem extends SectionedListItem<ScheduleListItem.Holder>
             startDate = iso8601Format.parse(startDateStr);
         } catch (ParseException e) {
             Log.e("Could not parse start date", e);
+            Log.c(e);
         }
 
         String endDateStr = c.getString(c.getColumnIndexOrThrow(Schedule.END));
@@ -55,6 +56,7 @@ public class ScheduleListItem extends SectionedListItem<ScheduleListItem.Holder>
             endDate = iso8601Format.parse(endDateStr);
         } catch (ParseException e) {
             Log.e("Could not parse end date", e);
+            Log.c(e);
         }
 
         String category = c.getString(c.getColumnIndexOrThrow(Schedule.CATEGORY));
