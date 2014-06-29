@@ -39,6 +39,9 @@ public abstract class SectionedCursorAdapter<T extends SectionedListItem<H>, H e
                 break;
             default:
                 headerValue = getHeader(listItem);
+                if (headerValue == null) {
+                    headerValue = "";
+                }
 
                 // A separator is needed if it's the first itemview of the
                 // ListView or if the group of the current cell is different
@@ -50,6 +53,10 @@ public abstract class SectionedCursorAdapter<T extends SectionedListItem<H>, H e
 
                     T listItem2 = createFromCursor(cursor);
                     String compValue = getHeader(listItem2);
+                    if (compValue == null) {
+                        compValue = "";
+                    }
+
                     needSeparator = !headerValue.equals(compValue);
 
                     cursor.moveToPosition(position);
