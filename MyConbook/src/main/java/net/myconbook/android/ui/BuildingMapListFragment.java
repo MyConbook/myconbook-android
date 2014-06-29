@@ -9,8 +9,10 @@ import android.widget.ListView;
 
 import net.myconbook.android.ConbookLoader;
 import net.myconbook.android.Log;
+import net.myconbook.android.R;
 import net.myconbook.android.content.BuildingMaps;
 import net.myconbook.android.ui.elements.BuildingMapListItem;
+import net.myconbook.android.ui.elements.HotelListItem;
 
 public class BuildingMapListFragment extends ConbookLoaderStandardListFragment<BuildingMapListItem, BuildingMapListItem.Holder> {
 
@@ -40,10 +42,12 @@ public class BuildingMapListFragment extends ConbookLoaderStandardListFragment<B
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Log.v("Launching image view activity");
+        BuildingMapListItem bmli = (BuildingMapListItem) v.getTag(R.id.data_list_item);
+        if (bmli == null) {
+            Log.w("BuildingMapListFragment.onListItemClick no view data tag");
+            return;
+        }
 
-        Cursor c = (Cursor) getAdapterObject().getItem(position);
-        BuildingMapListItem bmli = BuildingMapListItem.createFromCursor(c);
         startFragment(ImageViewFragment.createInstance(bmli.getFilename(), bmli.getName()));
     }
 }

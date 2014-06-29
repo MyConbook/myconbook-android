@@ -152,8 +152,11 @@ public class ScheduleListFragment extends ConbookSearchListFragment<ScheduleList
             return false;
         }
 
-        Cursor c = (Cursor) getAdapterObject().getItem(info.position);
-        ScheduleListItem cli = ScheduleListItem.createFromCursor(c);
+        ScheduleListItem cli = (ScheduleListItem) info.targetView.getTag(R.id.data_list_item);
+        if (cli == null) {
+            Log.w("ScheduleListFragment.onContextItemSelected no target view data tag");
+            return false;
+        }
 
         switch (item.getItemId()) {
             case R.id.menu_ctx_addcal:
@@ -194,14 +197,15 @@ public class ScheduleListFragment extends ConbookSearchListFragment<ScheduleList
     }
 
     @Override
-    protected SectionedCursorAdapter getAdapter() {
+    protected SectionedCursorAdapter<ScheduleListItem, ScheduleListItem.Holder> getAdapter() {
         return new SectionedCursorAdapter<ScheduleListItem, ScheduleListItem.Holder>(getActivity(), null, R.layout.guide_threelistitem) {
+            private SimpleDateFormat headerDisplay = new SimpleDateFormat("EEEE 'at' h:mma");
+
             public String getHeader(ScheduleListItem sli) {
                 switch (mCalendarSortOrder) {
                     case Name:
                         return sli.getName().substring(0, 1);
                     case Time:
-                        SimpleDateFormat headerDisplay = new SimpleDateFormat("EEEE 'at' h:mma");
                         return headerDisplay.format(sli.getStartTime());
                     case Room:
                         return sli.getRoom();
@@ -279,8 +283,11 @@ public class ScheduleListFragment extends ConbookSearchListFragment<ScheduleList
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Cursor c = (Cursor) getAdapterObject().getItem(position);
-        ScheduleListItem cli = ScheduleListItem.createFromCursor(c);
+        ScheduleListItem cli = (ScheduleListItem) v.getTag(R.id.data_list_item);
+        if (cli == null) {
+            Log.w("ScheduleListFragment.onListItemClick no view data tag");
+            return;
+        }
 
         String details = "";
 

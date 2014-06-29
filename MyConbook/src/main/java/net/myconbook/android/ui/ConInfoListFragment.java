@@ -11,8 +11,10 @@ import android.widget.TextView;
 import com.commonsware.cwac.merge.MergeAdapter;
 
 import net.myconbook.android.ConbookLoader;
+import net.myconbook.android.Log;
 import net.myconbook.android.R;
 import net.myconbook.android.content.ConInfo;
+import net.myconbook.android.ui.elements.BuildingMapListItem;
 import net.myconbook.android.ui.elements.ConInfoListItem;
 
 public class ConInfoListFragment extends ConbookLoaderStandardMergeListFragment<ConInfoListItem, ConInfoListItem.Holder> {
@@ -57,8 +59,11 @@ public class ConInfoListFragment extends ConbookLoaderStandardMergeListFragment<
         if (position == 0) {
             startFragment(new HotelListFragment());
         } else {
-            Cursor c = (Cursor) getStandardAdapterObject().getItem(position - 1);
-            ConInfoListItem cili = ConInfoListItem.createFromCursor(c);
+            ConInfoListItem cili = (ConInfoListItem) v.getTag(R.id.data_list_item);
+            if (cili == null) {
+                Log.w("ConInfoListFragment.onListItemClick no view data tag");
+                return;
+            }
             startFragment(ImageViewFragment.createInstance(cili.getMapName(), cili.getLocation()));
         }
     }

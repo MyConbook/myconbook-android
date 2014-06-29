@@ -16,8 +16,10 @@ import android.widget.ListView;
 
 import net.myconbook.android.ConbookLoader;
 import net.myconbook.android.Log;
+import net.myconbook.android.R;
 import net.myconbook.android.content.Hotels;
 import net.myconbook.android.ui.elements.HotelListItem;
+import net.myconbook.android.ui.elements.ScheduleListItem;
 
 public class HotelListFragment extends ConbookLoaderStandardListFragment<HotelListItem, HotelListItem.Holder> implements LoaderCallbacks<Cursor> {
     @Override
@@ -31,7 +33,7 @@ public class HotelListFragment extends ConbookLoaderStandardListFragment<HotelLi
     }
 
     @Override
-    protected StandardCursorAdapter getAdapter() {
+    protected StandardCursorAdapter<HotelListItem, HotelListItem.Holder> getAdapter() {
         return new StandardCursorAdapter<HotelListItem, HotelListItem.Holder>(getActivity(), null, android.R.layout.simple_list_item_2) {
             public HotelListItem.Holder createHolder(View view) {
                 return new HotelListItem.Holder(view);
@@ -46,8 +48,11 @@ public class HotelListFragment extends ConbookLoaderStandardListFragment<HotelLi
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Cursor c = (Cursor) getAdapterObject().getItem(position);
-        final HotelListItem hli = HotelListItem.createFromCursor(c);
+        final HotelListItem hli = (HotelListItem) v.getTag(R.id.data_list_item);
+        if (hli == null) {
+            Log.w("HotelListFragment.onListItemClick no view data tag");
+            return;
+        }
 
         String items[] = {"Call " + hli.getPhone(), "Open in Google Maps"};
 

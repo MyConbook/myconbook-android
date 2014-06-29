@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import net.myconbook.android.R;
 import net.myconbook.android.ui.elements.StandardListItem;
 
 public abstract class StandardCursorAdapter<T extends StandardListItem<H>, H extends StandardListItem.Holder> extends android.support.v4.widget.CursorAdapter {
@@ -40,5 +41,6 @@ public abstract class StandardCursorAdapter<T extends StandardListItem<H>, H ext
         H holder = (H) view.getTag();
 
         listItem.populateViewHolder(holder);
+        view.setTag(R.id.data_list_item, listItem);
     }
 }

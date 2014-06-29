@@ -14,8 +14,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import net.myconbook.android.ConbookLoader;
+import net.myconbook.android.Log;
 import net.myconbook.android.R;
 import net.myconbook.android.content.Dealers;
+import net.myconbook.android.ui.elements.ConInfoListItem;
 import net.myconbook.android.ui.elements.DealerListItem;
 
 public class DealersListFragment extends ConbookSearchListFragment<DealerListItem, DealerListItem.Holder> {
@@ -91,19 +93,22 @@ public class DealersListFragment extends ConbookSearchListFragment<DealerListIte
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Cursor c = (Cursor) getAdapterObject().getItem(position);
-        DealerListItem cli = DealerListItem.createFromCursor(c);
+        DealerListItem dli = (DealerListItem) v.getTag(R.id.data_list_item);
+        if (dli == null) {
+            Log.w("DealersListFragment.onListItemClick no view data tag");
+            return;
+        }
 
         StringBuilder sb = new StringBuilder();
 
-        String details = cli.getDescription();
+        String details = dli.getDescription();
         if (details == null) {
             sb.append("(No description given)");
         } else {
             sb.append(details);
         }
 
-        String url = cli.getURL();
+        String url = dli.getURL();
 
         if (url != null) {
             sb.append("\r\n").append(url);
@@ -111,7 +116,7 @@ public class DealersListFragment extends ConbookSearchListFragment<DealerListIte
 
         // Show details dialog
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        AlertDialog d = dialog.setCancelable(true).setTitle(cli.getName()).setMessage(sb).show();
+        AlertDialog d = dialog.setCancelable(true).setTitle(dli.getName()).setMessage(sb).show();
 
         // Parse URLs in field
         TextView message = (TextView) d.findViewById(android.R.id.message);

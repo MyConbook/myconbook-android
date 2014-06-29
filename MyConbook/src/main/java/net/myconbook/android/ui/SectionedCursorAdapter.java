@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
 
+import net.myconbook.android.R;
 import net.myconbook.android.ui.elements.SectionedListItem;
 
 public abstract class SectionedCursorAdapter<T extends SectionedListItem<H>, H extends SectionedListItem.Holder> extends StandardCursorAdapter<T, H> {
@@ -67,6 +68,7 @@ public abstract class SectionedCursorAdapter<T extends SectionedListItem<H>, H e
         }
 
         listItem.populateViewHolder(holder);
+        view.setTag(R.id.data_list_item, listItem);
     }
 
     @Override
