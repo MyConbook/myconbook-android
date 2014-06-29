@@ -15,6 +15,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import net.myconbook.android.BuildConfig;
 import net.myconbook.android.DbLoader;
@@ -217,6 +218,10 @@ public class UpdateFragment extends Fragment {
                     Log.w("UpdateFragment.AsyncFetchList.doInBackground error retrieving list file", e);
                     Log.c(e);
                     throw new UpdaterAlertException("Error checking for updates.");
+                } catch (JsonSyntaxException e) {
+                    Log.w("UpdateFragment.AsyncFetchList.doInBackground error parsing JSON", e);
+                    Log.c(e);
+                    throw new UpdaterAlertException("Error checking for updates.");
                 }
             } catch (UpdaterAlertException e) {
                 exception = e;
@@ -317,6 +322,10 @@ public class UpdateFragment extends Fragment {
                     mUpdateChecker.fetchCon(conName);
                 } catch (IOException e) {
                     Log.w("UpdateFragment.AsyncFetchCon.doInBackground error retrieving con data", e);
+                    Log.c(e);
+                    throw new UpdaterAlertException("Error checking for updates.");
+                } catch (JsonSyntaxException e) {
+                    Log.w("UpdateFragment.AsyncFetchList.doInBackground error parsing JSON", e);
                     Log.c(e);
                     throw new UpdaterAlertException("Error checking for updates.");
                 }
