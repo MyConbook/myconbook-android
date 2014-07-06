@@ -142,6 +142,11 @@ public class UpdateFragment extends Fragment {
     private void showError(String message, final boolean fatal) {
         Log.w("UpdateFragment.showError displaying error dialog");
 
+        if (getActivity() == null) {
+            Log.w("UpdateFragment.showError activity is null");
+            return;
+        }
+
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setMessage(message).setCancelable(false);
 
