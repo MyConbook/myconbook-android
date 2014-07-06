@@ -37,7 +37,7 @@ public class MapDownloader {
             return false;
         } catch (IOException e) {
             Log.e("MapDownloader.update error downloading map file", e);
-            Log.c(e);
+            //Log.c(e);
             return false;
         }
 

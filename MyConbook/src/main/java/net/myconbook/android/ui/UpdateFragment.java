@@ -217,15 +217,15 @@ public class UpdateFragment extends Fragment {
                     throw new UpdaterAlertException("Error checking for updates.");
                 } catch (NullPointerException e) {
                     Log.w("UpdateFragment.AsyncFetchList.doInBackground server response was empty", e);
-                    Log.c(e);
+                    //Log.c(e);
                     throw new UpdaterAlertException("Error checking for updates.");
                 } catch (IOException e) {
                     Log.w("UpdateFragment.AsyncFetchList.doInBackground error retrieving list file", e);
-                    Log.c(e);
+                    //Log.c(e);
                     throw new UpdaterAlertException("Error checking for updates.");
                 } catch (JsonSyntaxException e) {
                     Log.w("UpdateFragment.AsyncFetchList.doInBackground error parsing JSON", e);
-                    Log.c(e);
+                    //Log.c(e);
                     throw new UpdaterAlertException("Error checking for updates.");
                 }
             } catch (UpdaterAlertException e) {
@@ -327,11 +327,15 @@ public class UpdateFragment extends Fragment {
                     mUpdateChecker.fetchCon(conName);
                 } catch (IOException e) {
                     Log.w("UpdateFragment.AsyncFetchCon.doInBackground error retrieving con data", e);
-                    Log.c(e);
+                    //Log.c(e);
+                    throw new UpdaterAlertException("Error checking for updates.");
+                } catch (NullPointerException e) {
+                    Log.w("UpdateFragment.AsyncFetchCon.doInBackground server response was empty", e);
+                    //Log.c(e);
                     throw new UpdaterAlertException("Error checking for updates.");
                 } catch (JsonSyntaxException e) {
-                    Log.w("UpdateFragment.AsyncFetchList.doInBackground error parsing JSON", e);
-                    Log.c(e);
+                    Log.w("UpdateFragment.AsyncFetchCon.doInBackground error parsing JSON", e);
+                    //Log.c(e);
                     throw new UpdaterAlertException("Error checking for updates.");
                 }
 
@@ -358,7 +362,7 @@ public class UpdateFragment extends Fragment {
                     throw new UpdaterAlertException("Error updating database.", true);
                 } catch (IOException e) {
                     Log.e("UpdateFragment.AsyncFetchCon.doInBackground error updating database", e);
-                    Log.c(e);
+                    //Log.c(e);
                     throw new UpdaterAlertException("Error updating database.", true);
                 } catch (NullPointerException e) {
                     Log.e("UpdateFragment.AsyncFetchCon.doInBackground null pointer exception", e);
