@@ -74,12 +74,13 @@ public class GuideDetailFragment extends ConbookListFragment implements LoaderCa
         super.onActivityCreated(savedInstanceState);
 
         Bundle b = getArguments();
+
+        setListShown(false);
         getLoaderManager().initLoader(ConbookLoader.GUIDE_DETAIL, b, this);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        setListShown(false);
         return new CursorLoader(getActivity(), Uri.parse(args.getString("ContentURI")), null, null, null, null);
     }
 

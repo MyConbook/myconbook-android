@@ -16,7 +16,6 @@ public abstract class ConbookLoaderSectionedListFragment<L extends SectionedList
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        setListShown(false);
         return onCreateLoaderCursor(id, args);
     }
 
@@ -40,6 +39,8 @@ public abstract class ConbookLoaderSectionedListFragment<L extends SectionedList
         super.onActivityCreated(savedInstanceState);
 
         mIsActivityCreated = true;
+
+        setListShown(false);
         getLoaderManager().initLoader(getLoaderId(), null, this);
     }
 

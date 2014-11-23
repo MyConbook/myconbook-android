@@ -18,7 +18,6 @@ public abstract class ConbookLoaderStandardMergeListFragment<L extends StandardL
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        setListShown(false);
         return onCreateLoaderCursor(id, args);
     }
 
@@ -43,6 +42,8 @@ public abstract class ConbookLoaderStandardMergeListFragment<L extends StandardL
         super.onActivityCreated(savedInstanceState);
 
         mIsActivityCreated = true;
+
+        setListShown(false);
         getLoaderManager().initLoader(getLoaderId(), null, this);
     }
 
