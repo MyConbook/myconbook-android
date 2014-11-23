@@ -24,7 +24,7 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
         android:id="@android:id/text1"
         style="?android:attr/spinnerDropDownItemStyle"
         android:layout_width="match_parent"
@@ -34,11 +34,12 @@
         android:textSize="24sp"
         tools:text="Anthrocon 2013" />
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
         android:id="@android:id/text2"
         style="?android:attr/spinnerDropDownItemStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="14sp"
         tools:text="Pittsburgh, PA - July 4-7" />
+
 </LinearLayout>

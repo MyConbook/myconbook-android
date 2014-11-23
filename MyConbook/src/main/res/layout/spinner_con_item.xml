@@ -21,9 +21,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
         android:id="@android:id/text1"
         style="?android:attr/spinnerItemStyle"
         android:layout_width="match_parent"
@@ -31,13 +32,16 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         android:textSize="24sp"
+        android:textColor="@color/textcolor_white"
         tools:text="Convention Name" />
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
         android:id="@android:id/text2"
         style="?android:attr/spinnerItemStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="14sp"
+        android:textColor="@color/textcolor_white"
         tools:text="Convention details here" />
+
 </LinearLayout>

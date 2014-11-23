@@ -11,10 +11,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +45,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
     private boolean mAboutShown;
     private boolean mAlertShown;
 
-    private HackyDrawerLayout mDrawerLayout;
+    private Toolbar mToolbar;
+    private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
     private LinearLayout llUpdateMessage;
@@ -95,6 +98,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         }
 
         setContentView(R.layout.main_activity);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
         getSupportActionBar().setTitle(R.string.conname);
 
         if (savedInstanceState != null) {
@@ -140,8 +147,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         mUpdateFragment.setUpdaterEvent(onUpdaterEvent);
 
         // Drawer
-        mDrawerLayout = (HackyDrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -157,6 +164,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        mDrawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.material_blue_grey_700));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -433,8 +442,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
                 return view;
             }
         };
-
-        arrayAdapter.setDropDownViewResource(R.layout.spinner_con_dropdown_item);
 
         spConSelector.setAdapter(arrayAdapter);
         spConSelector.setSelection(curPos, false);

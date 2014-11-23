@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
+import com.astuetz.PagerSlidingTabStrip;
 
 import net.myconbook.android.ConbookLoader;
 import net.myconbook.android.R;
@@ -26,6 +29,7 @@ import java.util.Date;
 public class SchedulePagerFragment extends ConbookFragment implements LoaderCallbacks<Cursor> {
     private ProgressBar mProgressBar;
     private ViewPager mViewPager;
+    private PagerSlidingTabStrip mTabs;
     private FragmentPagerAdapter mPagerAdapter;
     private ArrayList<ScheduleDayListItem> mItems = new ArrayList<ScheduleDayListItem>();
 
@@ -45,6 +49,7 @@ public class SchedulePagerFragment extends ConbookFragment implements LoaderCall
         View view = inflater.inflate(R.layout.viewpager, container, false);
 
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
+
         mProgressBar = (ProgressBar) view.findViewById(R.id.progress_loading);
 
         if (mItems == null || mItems.isEmpty()) {
@@ -53,6 +58,9 @@ public class SchedulePagerFragment extends ConbookFragment implements LoaderCall
         }
 
         createAdapter();
+
+        mTabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
+
         return view;
     }
 
@@ -142,5 +150,6 @@ public class SchedulePagerFragment extends ConbookFragment implements LoaderCall
         }
 
         mViewPager.setCurrentItem(current);
+        mTabs.setViewPager(mViewPager);
     }
 }

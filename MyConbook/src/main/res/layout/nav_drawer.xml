@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
 
     <Spinner
         android:id="@+id/con_selector"
@@ -15,74 +16,50 @@
 
     <TextView
         android:id="@+id/schedule_button"
-        style="@android:style/TextAppearance.Medium"
+        style="@style/NavDrawer.Item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/abc_item_background_holo_dark"
         android:drawableLeft="@drawable/ic_menu_my_calendar"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        android:padding="8dp"
         android:text="@string/schedule" />
 
     <TextView
         android:id="@+id/guide_button"
-        style="@android:style/TextAppearance.Medium"
+        style="@style/NavDrawer.Item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/abc_item_background_holo_dark"
         android:drawableLeft="@drawable/ic_menu_directions"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        android:padding="8dp"
         android:text="@string/guide" />
 
     <TextView
         android:id="@+id/con_info_button"
-        style="@android:style/TextAppearance.Medium"
+        style="@style/NavDrawer.Item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/abc_item_background_holo_dark"
         android:drawableLeft="@drawable/ic_menu_agenda"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        android:padding="8dp"
         android:text="@string/coninfo" />
 
     <TextView
         android:id="@+id/dealers_button"
-        style="@android:style/TextAppearance.Medium"
+        style="@style/NavDrawer.Item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/abc_item_background_holo_dark"
         android:drawableLeft="@drawable/ic_menu_allfriends"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        android:padding="8dp"
         android:text="@string/dealers" />
 
     <TextView
         android:id="@+id/building_maps_button"
-        style="@android:style/TextAppearance.Medium"
+        style="@style/NavDrawer.Item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/abc_item_background_holo_dark"
         android:drawableLeft="@drawable/ic_menu_mapmode"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        android:padding="8dp"
         android:text="@string/buildingmaps" />
 
     <TextView
         android:id="@+id/area_map_button"
-        style="@android:style/TextAppearance.Medium"
+        style="@style/NavDrawer.Item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/abc_item_background_holo_dark"
         android:drawableLeft="@drawable/ic_menu_myplaces"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        android:padding="8dp"
         android:text="@string/areamap" />
 
 </LinearLayout>
