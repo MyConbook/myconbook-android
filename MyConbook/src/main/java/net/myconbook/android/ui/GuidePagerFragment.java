@@ -19,7 +19,7 @@ import net.myconbook.android.GuideDestination;
 import net.myconbook.android.Log;
 import net.myconbook.android.R;
 
-public class GuidePagerFragment extends ConbookFragment {
+public class GuidePagerFragment extends ConbookPagerFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +28,8 @@ public class GuidePagerFragment extends ConbookFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.viewpager, container, false);
-
-        ViewPager pager = (ViewPager) view.findViewById(R.id.viewpager);
-        pager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
+    protected void createAdapter() {
+        mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
             public int getCount() {
                 return 4;
@@ -84,11 +81,6 @@ public class GuidePagerFragment extends ConbookFragment {
                 return GuideListFragment.createInstance(destination);
             }
         });
-
-        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
-        tabs.setViewPager(pager);
-
-        return view;
     }
 
     @Override

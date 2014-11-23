@@ -26,10 +26,7 @@ import net.myconbook.android.ui.elements.ScheduleDayListItem;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class SchedulePagerFragment extends ConbookFragment implements LoaderCallbacks<Cursor> {
-    private ProgressBar mProgressBar;
-    private ViewPager mViewPager;
-    private PagerSlidingTabStrip mTabs;
+public class SchedulePagerFragment extends ConbookPagerFragment implements LoaderCallbacks<Cursor> {
     private FragmentPagerAdapter mPagerAdapter;
     private ArrayList<ScheduleDayListItem> mItems = new ArrayList<ScheduleDayListItem>();
 
@@ -46,20 +43,11 @@ public class SchedulePagerFragment extends ConbookFragment implements LoaderCall
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.viewpager, container, false);
-
-        mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
-
-        mProgressBar = (ProgressBar) view.findViewById(R.id.progress_loading);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
 
         if (mItems == null || mItems.isEmpty()) {
-            mProgressBar.setVisibility(View.VISIBLE);
-            mViewPager.setVisibility(View.GONE);
+            hide();
         }
-
-        createAdapter();
-
-        mTabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
 
         return view;
     }
@@ -85,8 +73,7 @@ public class SchedulePagerFragment extends ConbookFragment implements LoaderCall
 
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         updateAdapter(data);
-        mProgressBar.setVisibility(View.GONE);
-        mViewPager.setVisibility(View.VISIBLE);
+        show();
     }
 
     public void onLoaderReset(Loader<Cursor> loader) {
@@ -98,7 +85,12 @@ public class SchedulePagerFragment extends ConbookFragment implements LoaderCall
         inflater.inflate(R.menu.fragment_schedule, menu);
     }
 
-    private void createAdapter() {
+    @Override
+    protected boolean isLoadDelayed() {
+        return true;
+    }
+
+    protected void createAdapter() {
         mPagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public int getCount() {
@@ -150,6 +142,6 @@ public class SchedulePagerFragment extends ConbookFragment implements LoaderCall
         }
 
         mViewPager.setCurrentItem(current);
-        mTabs.setViewPager(mViewPager);
+        mTabStrip.setViewPager(mViewPager);
     }
 }
