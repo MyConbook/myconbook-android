@@ -24,8 +24,8 @@ android {
 	defaultConfig {
 		minSdkVersion 10
 		targetSdkVersion 21
-		versionCode 23
-		versionName "4.0.2"
+		versionCode 24
+		versionName "4.1.0"
 
         buildConfigField 'String', 'DATA_PATH', '"http://test2.myconbook.net/"'
         buildConfigField 'boolean', 'CRASHLYTICS_ENABLED', 'false'
