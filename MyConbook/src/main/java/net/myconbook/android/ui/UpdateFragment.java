@@ -124,7 +124,7 @@ public class UpdateFragment extends Fragment {
                         dialog.dismiss();
 
                         Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse("market://details?id=" + BuildConfig.PACKAGE_NAME));
+                        i.setData(Uri.parse("market://details?id=" + BuildConfig.APPLICATION_ID));
 
                         try {
                             startActivity(i);
