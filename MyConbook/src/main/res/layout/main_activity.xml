@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
+<net.myconbook.android.ui.HackyDrawerLayout
     android:id="@+id/drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -54,4 +54,4 @@
 
     </ScrollView>
 
-</android.support.v4.widget.DrawerLayout>
+</net.myconbook.android.ui.HackyDrawerLayout>
