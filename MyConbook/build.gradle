@@ -38,8 +38,8 @@ android {
 		
 		release {
             buildConfigField 'boolean', 'CRASHLYTICS_ENABLED', 'true'
-			
-			runProguard false
+
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
 		}
 	}
