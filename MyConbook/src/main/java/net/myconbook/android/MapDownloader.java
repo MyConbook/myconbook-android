@@ -26,6 +26,11 @@ public class MapDownloader {
         // Download the update zip
         byte[] byteArray;
 
+        if (mContext == null) {
+            Log.w("MapDownloader.update mContext is null");
+            return false;
+        }
+
         try {
             ByteArrayOutputStream outStream = new ByteArrayOutputStream();
             UrlFileFetcher.fetch(outStream, mDownloadPath);
