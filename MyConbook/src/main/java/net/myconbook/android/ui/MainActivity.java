@@ -39,6 +39,8 @@ import net.myconbook.android.model.UpdaterInfo;
 
 import java.util.HashMap;
 
+import io.fabric.sdk.android.Fabric;
+
 public class MainActivity extends ActionBarActivity implements OnClickListener {
     private HashMap<String, String> mDbInfo;
     private boolean mIsPaused;
@@ -94,7 +96,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
 
         if (BuildConfig.CRASHLYTICS_ENABLED) {
-            Crashlytics.start(this);
+            Fabric.with(this, new Crashlytics());
         }
 
         setContentView(R.layout.main_activity);
