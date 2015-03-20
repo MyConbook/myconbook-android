@@ -452,6 +452,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
         if (BuildConfig.CRASHLYTICS_ENABLED) {
             Crashlytics.setString("ConName", mUpdateFragment.getConName());
+            Crashlytics.setInt("DbVer", mUpdateFragment.getUpdateChecker().getDbVersion());
+            Crashlytics.setInt("MapVer", mUpdateFragment.getUpdateChecker().getMapVersion());
         }
     }
 
