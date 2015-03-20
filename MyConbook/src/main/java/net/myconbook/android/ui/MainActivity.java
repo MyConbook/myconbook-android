@@ -9,8 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -34,10 +32,10 @@ import net.myconbook.android.BuildConfig;
 import net.myconbook.android.DbLoader;
 import net.myconbook.android.Log;
 import net.myconbook.android.R;
-import net.myconbook.android.UpdateChecker;
 import net.myconbook.android.model.UpdaterInfo;
 
 import java.util.HashMap;
+import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -62,31 +60,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
     private TextView btnAreaMap;
 
     private UpdateFragment mUpdateFragment;
-
-    private Handler onUpdaterEvent = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            Log.d("MainActivity.onUpdaterEvent got response from updater: " + msg.what);
-
-            switch (msg.what) {
-                case UpdateFragment.FINISH_LIST_OK:
-                    populateConList();
-                    break;
-                case UpdateFragment.FINISH_CON_OK:
-                    hideUpdateProgress();
-                    refreshFromDb();
-                    break;
-                case UpdateFragment.FINISH_ERROR:
-                    finish();
-                    break;
-                case UpdateFragment.FINISH_STARTED:
-                    showUpdateProgress((String) msg.obj);
-                    break;
-            }
-
-            return true;
-        }
-    });
 
     /**
      * Called when the activity is first created.
@@ -146,7 +119,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
             getSupportFragmentManager().beginTransaction().add(mUpdateFragment, "Updater").commit();
         }
 
-        mUpdateFragment.setUpdaterEvent(onUpdaterEvent);
+        mUpdateFragment.setUpdateListener(mUpdateListener);
 
         // Drawer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -197,10 +170,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         super.onResume();
         mIsPaused = false;
 
-        if (mUpdateFragment.getShouldUpdate()) {
+        if (UpdateFragment.getShouldUpdate(this)) {
             startListUpdate(false);
         } else {
-            populateConList();
+            populateConList(mUpdateFragment.getUpdateChecker().getCons());
         }
     }
 
@@ -316,21 +289,8 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
             mAboutShown = false;
             mUpdateFragment.startConUpdate(conName);
         } else {
-            onUpdaterEvent.sendEmptyMessage(UpdateFragment.FINISH_CON_OK);
+            refreshFromDb();
         }
-    }
-
-    private void showUpdateProgress(String message) {
-        if (message != null) {
-            tvUpdateMessage.setText(message);
-            llUpdateMessage.setVisibility(View.VISIBLE);
-        } else {
-            llUpdateMessage.setVisibility(View.GONE);
-        }
-    }
-
-    private void hideUpdateProgress() {
-        llUpdateMessage.setVisibility(View.GONE);
     }
 
     private void toggleButtons(boolean state) {
@@ -338,6 +298,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
         for (TextView button : buttons) {
             button.setEnabled(state);
+        }
+
+        if (state) {
+            llUpdateMessage.setVisibility(View.GONE);
         }
     }
 
@@ -359,20 +323,17 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setMessage(message).setCancelable(false).setOnCancelListener(cancelListener);
 
-        if (fatal) {
+        if (!fatal) {
             alert.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     mAlertShown = false;
-
-                    // Wipe existing data to force a full refresh
-                    mUpdateFragment.mUpdateChecker = null;
                     startListUpdate(true);
                     dialog.dismiss();
                 }
             });
         }
 
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(fatal ? "Exit" : "Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 mAlertShown = false;
                 dialog.cancel();
@@ -383,35 +344,30 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         mAlertShown = true;
     }
 
-    private void populateConList() {
-        UpdateChecker updateChecker = mUpdateFragment.mUpdateChecker;
-
-        if (updateChecker == null) {
+    private void populateConList(List<UpdaterInfo.ConventionInfo> cons) {
+        if (cons == null || cons.isEmpty()) {
+            showError("No conventions are currently listed.", true);
             return;
         }
 
-        UpdaterInfo.ConventionInfo cons[] = updateChecker.getCons();
-        if (cons == null) {
-            return;
-        }
-
-        String currentCon = updateChecker.getConName();
+        String currentCon = mUpdateFragment.getUpdateChecker().getConName();
 
         int curPos = -1;
-        for (int i = 0; i < cons.length; i++) {
-            if (cons[i].path.equals(currentCon)) {
+        for (int i = 0; i < cons.size(); i++) {
+            if (cons.get(i).path.equals(currentCon)) {
                 curPos = i;
             }
         }
 
         if (curPos < 0) {
             // Old con was not found, default to first new one
-            Log.d("MainActivity.populateConList could not find previous con " + currentCon + ", defaulting to " + cons[0].path);
+            String path = mUpdateFragment.getUpdateChecker().getFirstCon();
+            Log.d("MainActivity.populateConList could not find previous con " + currentCon + ", defaulting to " + path);
             curPos = 0;
-            currentCon = cons[0].path;
+            currentCon = path;
         }
 
-        ArrayAdapter<UpdaterInfo.ConventionInfo> arrayAdapter = new ArrayAdapter<UpdaterInfo.ConventionInfo>(this, R.layout.spinner_con_item, updateChecker.getCons()) {
+        ArrayAdapter<UpdaterInfo.ConventionInfo> arrayAdapter = new ArrayAdapter<UpdaterInfo.ConventionInfo>(this, R.layout.spinner_con_item, cons) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = convertView;
@@ -513,4 +469,55 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
             getSupportActionBar().setTitle("Error: Reload DB!");
         }
     }
+
+    private UpdateFragment.UpdaterListener mUpdateListener = new UpdateFragment.UpdaterListener() {
+        @Override
+        public void onNewerApp() {
+            AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+
+            alert.setMessage("A new version of MyConbook is available. Do you want to go to the Play Store to upgrade?")
+                    .setCancelable(true)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse("market://details?id=" + BuildConfig.APPLICATION_ID));
+                            startSafeActivity(i);
+                        }
+                    }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            }).show();
+        }
+
+        @Override
+        public void onListUpdate(List<UpdaterInfo.ConventionInfo> cons) {
+            populateConList(cons);
+        }
+
+        @Override
+        public void onConUpdate() {
+            llUpdateMessage.setVisibility(View.GONE);
+            refreshFromDb();
+        }
+
+        @Override
+        public void onMessage(String message) {
+            tvUpdateMessage.setText(message);
+            llUpdateMessage.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onAlert(String message, boolean fatal) {
+            llUpdateMessage.setVisibility(View.GONE);
+            showError(message, fatal);
+        }
+
+        @Override
+        public void onNop() {
+            llUpdateMessage.setVisibility(View.GONE);
+        }
+    };
 }
