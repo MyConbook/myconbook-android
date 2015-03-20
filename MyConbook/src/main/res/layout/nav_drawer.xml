@@ -62,4 +62,12 @@
         android:drawableLeft="@drawable/ic_menu_myplaces"
         android:text="@string/areamap" />
 
+    <TextView
+        android:id="@+id/about_button"
+        style="@style/NavDrawer.Item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_menu_info_details"
+        android:text="@string/about" />
+
 </LinearLayout>

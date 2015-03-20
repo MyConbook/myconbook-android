@@ -58,6 +58,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
     private TextView btnDealers;
     private TextView btnBuildingMaps;
     private TextView btnAreaMap;
+    private TextView btnAbout;
 
     private UpdateFragment mUpdateFragment;
 
@@ -106,6 +107,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
         btnAreaMap = (TextView) findViewById(R.id.area_map_button);
         btnAreaMap.setOnClickListener(this);
+
+        btnAbout = (TextView) findViewById(R.id.about_button);
+        btnAbout.setOnClickListener(this);
 
         toggleButtons(false);
 
@@ -248,6 +252,10 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
                 i.setData(Uri.parse(mDbInfo.get(DbLoader.INFO_AREA_MAP)));
                 startSafeActivity(i);
                 break;
+
+            case R.id.about_button:
+                startFragment(AboutFragment.createInstance(mDbInfo), true);
+                break;
         }
     }
 
@@ -294,7 +302,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
     }
 
     private void toggleButtons(boolean state) {
-        TextView[] buttons = {btnSchedule, btnGuide, btnConInfo, btnDealers, btnBuildingMaps, btnAreaMap};
+        TextView[] buttons = {btnSchedule, btnGuide, btnConInfo, btnDealers, btnBuildingMaps, btnAreaMap, btnAbout};
 
         for (TextView button : buttons) {
             button.setEnabled(state);
