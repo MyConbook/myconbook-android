@@ -41,7 +41,7 @@ public class DealersListFragment extends ConbookSearchListFragment<DealerListIte
         switch (item.getItemId()) {
             case R.id.menu_map:
                 // TODO: Make this better
-                startFragment(ImageViewFragment.createInstance("dealersroom", "Dealer's room"));
+                startFragment(ImageViewFragment.createInstance("dealersroom", getString(R.string.dealers_room)));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -103,7 +103,7 @@ public class DealersListFragment extends ConbookSearchListFragment<DealerListIte
 
         String details = dli.getDescription();
         if (details == null) {
-            sb.append("(No description given)");
+            sb.append(getString(R.string.no_description));
         } else {
             sb.append(details);
         }

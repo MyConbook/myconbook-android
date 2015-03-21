@@ -33,7 +33,7 @@ public class ConInfoListFragment extends ConbookLoaderStandardMergeListFragment<
         MergeAdapter adapter = new MergeAdapter();
         View hotelRow = getMainActivity().getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
         TextView text1 = (TextView) hotelRow.findViewById(android.R.id.text1);
-        text1.setText("Hotel info");
+        text1.setText(R.string.hotel_info);
         adapter.addView(hotelRow, true);
 
         adapter.addAdapter(getStandardAdapterObject());

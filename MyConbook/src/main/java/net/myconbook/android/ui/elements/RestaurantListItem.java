@@ -66,11 +66,11 @@ public class RestaurantListItem extends GuideBaseItem<RestaurantListItem.Holder>
     }
 
     public String getDollarsAsSigns() {
-        if (getDollars() == 1) return "$";
-        if (getDollars() == 2) return "$$";
-        if (getDollars() == 3) return "$$$";
-        if (getDollars() == 4) return "$$$$";
-        if (getDollars() >= 5) return "$$$$$";
+        if (getDollars() == 1) return getString(R.string.dollars_one);
+        if (getDollars() == 2) return getString(R.string.dollars_two);
+        if (getDollars() == 3) return getString(R.string.dollars_three);
+        if (getDollars() == 4) return getString(R.string.dollars_four);
+        if (getDollars() >= 5) return getString(R.string.dollars_five);
 
         return "";
     }
@@ -105,7 +105,7 @@ public class RestaurantListItem extends GuideBaseItem<RestaurantListItem.Holder>
         // Redo name
         String name = getName();
         if (getOpenStatus() == RestaurantOpenStatus.Closed) {
-            name += " [Closed]";
+            name += getString(R.string.brackets_closed);
         }
 
         holder.name.setText(name);
@@ -127,7 +127,7 @@ public class RestaurantListItem extends GuideBaseItem<RestaurantListItem.Holder>
 			holder.rating.setVisibility(View.INVISIBLE);
 		}*/
 
-        if ((!holder.hours.getText().toString().equals("Not available")) && isOpenDisplayed() && hasHours() && isOpen() && (getOpenStatus() != RestaurantOpenStatus.Closed)) {
+        if ((!holder.hours.getText().toString().equals(getString(R.string.not_available))) && isOpenDisplayed() && hasHours() && isOpen() && (getOpenStatus() != RestaurantOpenStatus.Closed)) {
             holder.hours.setTextColor(Color.GREEN);
         } else {
             holder.hours.setTextColor(holder.address.getTextColors().getDefaultColor());

@@ -176,7 +176,7 @@ public class ScheduleListFragment extends ConbookSearchListFragment<ScheduleList
                 try {
                     startActivity(i);
                 } catch (ActivityNotFoundException e) {
-                    showError("Could not find an application to handle the request.");
+                    showError(getString(R.string.activity_not_found));
                 }
 
                 return true;
@@ -296,11 +296,11 @@ public class ScheduleListFragment extends ConbookSearchListFragment<ScheduleList
         }
 
         if (details.trim().equals("")) {
-            details = "(No description given)";
+            details = getString(R.string.no_description);
         }
 
         if (cli.getCategory() != null && !"".equals(cli.getCategory())) {
-            details += "\n\nCategory: " + cli.getCategory();
+            details += "\n\n" + getString(R.string.details_category) + cli.getCategory();
         }
 
         // Show details dialog
@@ -314,7 +314,7 @@ public class ScheduleListFragment extends ConbookSearchListFragment<ScheduleList
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setMessage(message)
                 .setCancelable(false)
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
                     }

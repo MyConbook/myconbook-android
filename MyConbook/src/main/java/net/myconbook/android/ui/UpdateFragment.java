@@ -135,7 +135,7 @@ public class UpdateFragment extends Fragment {
     private class AsyncFetchList extends UpdaterTask<Boolean> {
         @Override
         protected void onPreExecute() {
-            publishProgress("Fetching convention list...");
+            publishProgress(getString(R.string.fetching_con_list));
         }
 
         @Override
@@ -177,7 +177,7 @@ public class UpdateFragment extends Fragment {
     private class AsyncFetchCon extends UpdaterTask<String> {
         @Override
         protected void onPreExecute() {
-            publishProgress("Fetching convention data...");
+            publishProgress(getString(R.string.fetching_con_data));
         }
 
         @Override

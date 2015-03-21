@@ -222,7 +222,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
                         i.setData(Uri.parse(mDbInfo.get(DbLoader.INFO_GUIDE_URL)));
                         startSafeActivity(i);
                     } else {
-                        showError("This convention does not support the guide feature.", false);
+                        showError(getString(R.string.con_no_guide_feature), false);
                         return;
                     }
                 } else {
@@ -281,7 +281,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         try {
             startActivity(i);
         } catch (ActivityNotFoundException e) {
-            showError("Could not find an application to handle the request.", false);
+            showError(getString(R.string.activity_not_found), false);
         }
     }
 
@@ -332,7 +332,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         alert.setMessage(message).setCancelable(false).setOnCancelListener(cancelListener);
 
         if (!fatal) {
-            alert.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+            alert.setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     mAlertShown = false;
                     startListUpdate(true);
@@ -341,7 +341,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
             });
         }
 
-        alert.setNegativeButton(fatal ? "Exit" : "Cancel", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(fatal ? R.string.exit : android.R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 mAlertShown = false;
                 dialog.cancel();
@@ -354,7 +354,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
     private void populateConList(List<UpdaterInfo.ConventionInfo> cons) {
         if (cons == null || cons.isEmpty()) {
-            showError("No conventions are currently listed.", true);
+            showError(getString(R.string.no_conventions_listed), true);
             return;
         }
 
@@ -446,7 +446,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
         if (mDbInfo == null) {
             Log.w("MainActivity.refreshFromDb dbInfo is still null");
-            showError("The database could not be loaded.", true);
+            showError(getString(R.string.error_database_not_loaded), true);
             return;
         } else {
             toggleButtons(true);
@@ -476,7 +476,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         if (mDbInfo.containsKey(DbLoader.INFO_CONVENTION)) {
             getSupportActionBar().setTitle(mDbInfo.get(DbLoader.INFO_CONVENTION));
         } else {
-            getSupportActionBar().setTitle("Error: Reload DB!");
+            getSupportActionBar().setTitle(getString(R.string.error_reload_db));
         }
     }
 
@@ -485,7 +485,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         public void onNewerApp() {
             AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
 
-            alert.setMessage("A new version of MyConbook is available. Do you want to go to the Play Store to upgrade?")
+            alert.setMessage(R.string.new_version_available)
                     .setCancelable(true)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {

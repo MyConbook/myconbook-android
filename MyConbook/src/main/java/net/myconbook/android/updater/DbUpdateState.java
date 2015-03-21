@@ -18,7 +18,7 @@ public class DbUpdateState extends BaseState {
     @Override
     public State run() {
         Log.v("USM:DbUpdateState.run downloading database from network for con: " + mGlobal.updateChecker.getConName());
-        mGlobal.pushMessage("Downloading new database...");
+        mGlobal.pushMessage(getString(R.string.downloading.db));
 
         // Delete old
         mGlobal.context.deleteDatabase(DbLoader.DATABASE_NAME);

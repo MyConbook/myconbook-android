@@ -98,8 +98,8 @@ public class GuidePagerFragment extends ConbookPagerFragment {
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("plain/text");
                 i.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.email)});
-                i.putExtra(Intent.EXTRA_SUBJECT, "Report a problem");
-                startSafeActivity(Intent.createChooser(i, "Send mail"));
+                i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.report_problem));
+                startSafeActivity(Intent.createChooser(i, getString(R.string.send_mail)));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

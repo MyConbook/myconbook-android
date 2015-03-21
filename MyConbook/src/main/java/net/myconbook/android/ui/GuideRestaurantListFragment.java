@@ -130,7 +130,7 @@ public class GuideRestaurantListFragment extends GuideListFragment<RestaurantLis
             if (data == null) return;
 
             ArrayList<String> categories = new ArrayList<String>();
-            categories.add(" --- All --- ");
+            categories.add(getString(R.string.all_categories));
 
             while (data.moveToNext()) {
                 categories.add(data.getString(data.getColumnIndexOrThrow(RestaurantCategories.CATEGORY)));

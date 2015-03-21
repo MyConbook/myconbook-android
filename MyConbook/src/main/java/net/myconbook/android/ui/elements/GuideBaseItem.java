@@ -38,16 +38,16 @@ public abstract class GuideBaseItem<H extends SectionedListItem.Holder> extends 
 
     public static String getTimeText(String time) {
         if ((time == null) || (time.equals(""))) {
-            return "Closed";
+            return getString(R.string.closed);
         } else if (time.equals("?")) {
-            return "Unknown";
+            return getString(R.string.unknown);
         } else {
             return time;
         }
     }
 
     protected static void setTimeText(TextView field, String time) {
-        field.setText("Today's hours: " + getTimeText(time));
+        field.setText(getString(R.string.todays_hours) + getTimeText(time));
     }
 
     public String getName() {
@@ -126,7 +126,7 @@ public abstract class GuideBaseItem<H extends SectionedListItem.Holder> extends 
             case Calendar.SUNDAY:
                 return getSundayHours();
             default:
-                return "Not available";
+                return getString(R.string.not_available);
         }
     }
 
