@@ -54,7 +54,7 @@ public class HotelListFragment extends ConbookLoaderStandardListFragment<HotelLi
             return;
         }
 
-        String items[] = {"Call " + hli.getPhone(), "Open in Google Maps"};
+        String items[] = {getString(R.string.call_number) + hli.getPhone(), getString(R.string.open_in_maps)};
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         dialog.setCancelable(true).setTitle(hli.getName()).setItems(items, new OnClickListener() {
@@ -66,7 +66,7 @@ public class HotelListFragment extends ConbookLoaderStandardListFragment<HotelLi
                     try {
                         startActivity(i);
                     } catch (ActivityNotFoundException e) {
-                        showError("Could not find an application to handle the request.");
+                        showError(getString(R.string.activity_not_found));
                     }
                 } else if (which == 1) {
                     // Open place
@@ -75,7 +75,7 @@ public class HotelListFragment extends ConbookLoaderStandardListFragment<HotelLi
                     try {
                         startActivity(i);
                     } catch (ActivityNotFoundException e) {
-                        showError("Could not find an application to handle the request.");
+                        showError(getString(R.string.activity_not_found));
                     }
                 } else {
                     dialog.cancel();
@@ -90,7 +90,7 @@ public class HotelListFragment extends ConbookLoaderStandardListFragment<HotelLi
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setMessage(message)
                 .setCancelable(false)
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
                     }

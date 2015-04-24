@@ -38,7 +38,7 @@ public class AboutFragment extends ConbookFragment {
         View view = inflater.inflate(R.layout.about_fragment, container, false);
 
         TextView tvAboutInfo = (TextView) view.findViewById(R.id.tvAboutInfo);
-        tvAboutInfo.setText("Support information\nDatabase build date:\n" + mDbInfo.get(DbLoader.INFO_BUILDDATE) + " (v " + mDbInfo.get(DbLoader.INFO_DBVER) + ")");
+        tvAboutInfo.setText(getString(R.string.support_info) + mDbInfo.get(DbLoader.INFO_BUILDDATE) + " (v " + mDbInfo.get(DbLoader.INFO_DBVER) + ")");
 
         TextView tvDataAttribution = (TextView) view.findViewById(R.id.tvDataAttribution);
         tvDataAttribution.setText(mDbInfo.get(DbLoader.INFO_PROVIDER_DETAILS));

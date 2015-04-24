@@ -23,7 +23,7 @@ public class MapUpdateState extends BaseState {
     @Override
     public State run() {
         Log.v("USM:MapUpdateState.run downloading maps from network for con: " + mGlobal.updateChecker.getConName());
-        mGlobal.pushMessage("Downloading new maps...");
+        mGlobal.pushMessage(getString(R.string.downloading_maps));
 
         // Download
         String downloadPath = BuildConfig.DATA_PATH + mGlobal.updateChecker.getConName() + "/maps.zip";

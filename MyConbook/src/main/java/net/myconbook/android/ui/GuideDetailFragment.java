@@ -98,7 +98,7 @@ public class GuideDetailFragment extends ConbookListFragment implements LoaderCa
 
         if (item == null) {
             Log.w("GuideDetailFragment.onLoadFinished no data loaded from cursor");
-            Toast.makeText(getActivity(), "Error: No data was loaded.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.error_no_data_loaded, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -180,26 +180,26 @@ public class GuideDetailFragment extends ConbookListFragment implements LoaderCa
                         text2.setText(sb);
                         break;
                     case ROW_PHONE:
-                        text1.setText("Call " + item.getPhone());
+                        text1.setText(getString(R.string.call_number) + item.getPhone());
                         text1.setCompoundDrawablesWithIntrinsicBounds(0, 0, android.R.drawable.ic_menu_call, 0);
                         break;
                     case ROW_CATEGORY:
-                        text1.setText("Category");
+                        text1.setText(R.string.row_category);
                         text2.setText(item.getCategory());
                         break;
                     case ROW_RATING:
-                        text1.setText("Rating");
-                        text2.setText(rItem.getRating() + " stars");
+                        text1.setText(R.string.row_rating);
+                        text2.setText(rItem.getRating() + getString(R.string.rating_stars));
                         break;
                     case ROW_COST:
-                        text1.setText("Cost");
+                        text1.setText(R.string.row_cost);
                         text2.setText(rItem.getDollarsAsSigns());
                         break;
                     case ROW_DELIVERY:
-                        text1.setText("Has delivery");
+                        text1.setText(R.string.row_has_delivery);
                         break;
                     case ROW_COMMENTS:
-                        text1.setText("Review/comments");
+                        text1.setText(R.string.row_comments);
                         text2.setText(item.getComments());
                         break;
                     case ROW_HOURS:
@@ -214,15 +214,15 @@ public class GuideDetailFragment extends ConbookListFragment implements LoaderCa
                         tvSunday.setText(GuideBaseItem.getTimeText(item.getSundayHours()));
                         break;
                     case ROW_URL:
-                        text1.setText("Open website");
+                        text1.setText(R.string.open_website);
                         text1.setCompoundDrawablesWithIntrinsicBounds(0, 0, android.R.drawable.ic_menu_directions, 0);
                         break;
                     case ROW_GOOGLE:
-                        text1.setText("Open in Google Maps");
+                        text1.setText(R.string.open_in_maps);
                         text1.setCompoundDrawablesWithIntrinsicBounds(0, 0, android.R.drawable.ic_menu_mapmode, 0);
                         break;
                     case ROW_YELP:
-                        text1.setText("Open on Yelp");
+                        text1.setText(R.string.open_in_yelp);
                         text1.setCompoundDrawablesWithIntrinsicBounds(0, 0, android.R.drawable.ic_menu_directions, 0);
                         break;
                     default:
@@ -276,7 +276,7 @@ public class GuideDetailFragment extends ConbookListFragment implements LoaderCa
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setMessage(message)
                 .setCancelable(true)
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
@@ -286,7 +286,7 @@ public class GuideDetailFragment extends ConbookListFragment implements LoaderCa
 
     private void showLocation(final GuideBaseItem<?> item) {
         if (item.getPlaceId().equals("")) {
-            String message = "This location could not be found in Google Maps.";
+            String message = getString(R.string.not_found_on_maps);
 
             if ((mDestination == GuideDestination.Restaurants) || (mDestination == GuideDestination.RestaurantsOpenNow)) {
                 // Special 'closed' checks
@@ -294,15 +294,15 @@ public class GuideDetailFragment extends ConbookListFragment implements LoaderCa
                 RestaurantOpenStatus openStatus = restaurant.getOpenStatus();
 
                 if (openStatus == RestaurantOpenStatus.Closed) {
-                    message = "This location could not be found in Google Maps, and may be closed.";
+                    message = getString(R.string.not_found_on_maps_closed);
                 } else if (openStatus == RestaurantOpenStatus.VerifiedOpen) {
-                    message = "This location could not be found in Google Maps, but it was verified to be open by MyConbook.";
+                    message = getString(R.string.not_found_on_maps_verified_open);
                 }
             }
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-            dialog.setCancelable(true).setTitle("Location not found").setMessage(message)
-                    .setNegativeButton("Cancel", new android.content.DialogInterface.OnClickListener() {
+            dialog.setCancelable(true).setTitle(R.string.location_not_found).setMessage(message)
+                    .setNegativeButton(android.R.string.cancel, new android.content.DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
@@ -316,15 +316,15 @@ public class GuideDetailFragment extends ConbookListFragment implements LoaderCa
 
                 if (openStatus == RestaurantOpenStatus.Closed) {
                     AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-                    dialog.setCancelable(true).setTitle("Location may be closed")
-                            .setMessage("This location was marked as closed according to Google, but was still in the conbook. It may or may not still be open.")
-                            .setPositiveButton("Continue", new android.content.DialogInterface.OnClickListener() {
+                    dialog.setCancelable(true).setTitle(R.string.location_may_be_closed)
+                            .setMessage(R.string.location_may_be_closed_message)
+                            .setPositiveButton(R.string.continue, new android.content.DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     showPlaceInMaps(item);
                                 }
                             })
-                            .setNegativeButton("Cancel", new android.content.DialogInterface.OnClickListener() {
+                            .setNegativeButton(android.R.string.cancel, new android.content.DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
@@ -347,7 +347,7 @@ public class GuideDetailFragment extends ConbookListFragment implements LoaderCa
             startActivity(i);
         } catch (ActivityNotFoundException e) {
             Log.w("GuideDetailFragment.showPlaceInMaps error launching Places link", e);
-            showError("Unable to launch Google Maps.");
+            showError(getString(R.string.unable_to_launch_maps));
         }
     }
 
@@ -359,7 +359,7 @@ public class GuideDetailFragment extends ConbookListFragment implements LoaderCa
             startActivity(i);
         } catch (ActivityNotFoundException e) {
             Log.w("GuideDetailFragment.launchBrowser error launching browser for url " + url, e);
-            showError("Unable to launch browser for link " + url + ".");
+            showError(R.string.cant_open_link + url + ".");
         }
     }
 
